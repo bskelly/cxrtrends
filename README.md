@@ -231,3 +231,26 @@ This produces:
 - `report_seed_results.csv`
 - `report_summary.csv`
 - `report.md`
+
+
+## Fixed-Date RSV Comparison Experiment
+
+A dedicated experiment spec is now available for the exact comparison you described:
+
+- `experiments/cxr_under1_sep2024_rsv_compare.json`
+
+It runs two under-1 single-series forecasts from **2024-09-01** onward:
+
+- no RSV context
+- counterfactual RSV program context from 2024-09-01 onward
+
+Each evaluated seed now also writes:
+
+- `forecast_plot.svg`
+
+This plot shows:
+
+- historical counts
+- actual future counts
+- forecast median
+- an 80% uncertainty band (`p10` to `p90`)

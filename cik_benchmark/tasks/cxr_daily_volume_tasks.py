@@ -29,8 +29,12 @@ class CXRDailyForecastTask(UnivariateCRPSTask):
             "normalized_path", str(DEFAULT_NORMALIZED_DATASET)
         )
         self.frequency = self.fixed_config.get("frequency", "D")
-        self.horizon = int(self.fixed_config.get("horizon", 7))
-        self.history_length = int(self.fixed_config.get("history_length", 56))
+        raw_horizon = self.fixed_config.get("horizon", 7)
+        self.horizon = None if raw_horizon is None else int(raw_horizon)
+        raw_history_length = self.fixed_config.get("history_length", 56)
+        self.history_length = (
+            None if raw_history_length is None else int(raw_history_length)
+        )
         self.age_upper_years = self.fixed_config.get("age_upper_years")
         self.series_mode = self.fixed_config.get("series_mode", "single")
         self.panel_column = self.fixed_config.get("panel_column")
@@ -40,6 +44,8 @@ class CXRDailyForecastTask(UnivariateCRPSTask):
         self.context_source_column = self.fixed_config.get(
             "context_source_column", "exam_reason_text"
         )
+        self.forecast_start_date = self.fixed_config.get("forecast_start_date")
+        self.forecast_end_date = self.fixed_config.get("forecast_end_date")
         self.series_id = None
         self.task_metadata = {}
         super().__init__(seed=seed, fixed_config=None)
@@ -57,6 +63,8 @@ class CXRDailyForecastTask(UnivariateCRPSTask):
             context_text=self.context_text,
             context_builder=self.context_builder,
             context_source_column=self.context_source_column,
+            forecast_start_date=self.forecast_start_date,
+            forecast_end_date=self.forecast_end_date,
         )
         window = adapter.sample_window(self.random)
         self.series_id = window.series_id
@@ -71,7 +79,7 @@ class CXRDailyForecastTask(UnivariateCRPSTask):
     def verify_config(self) -> list[str]:
         errors = super().verify_config()
         if self.frequency != "D":
-            errors.append("This Phase 2 task currently supports daily frequency only.")
+            errors.append("This custom task currently supports daily frequency only.")
         if list(self.past_time.columns) != ["exam_count"]:
             errors.append("Task expects a single target column named 'exam_count'.")
         return errors

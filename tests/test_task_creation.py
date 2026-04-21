@@ -47,6 +47,25 @@ class TestTaskCreation(TempDirTestCaseMixin, unittest.TestCase):
                 },
             )
 
+    def test_fixed_start_date_uses_all_remaining_future_periods(self):
+        normalized_path = write_normalized_csv(self.tmp_path / "normalized.csv", days=80)
+
+        task = CXRDailyForecastUnder1YearTask(
+            seed=11,
+            fixed_config={
+                "normalized_path": str(normalized_path),
+                "frequency": "D",
+                "horizon": None,
+                "history_length": None,
+                "series_mode": "single",
+                "forecast_start_date": "2025-10-01",
+            },
+        )
+
+        self.assertEqual(str(task.future_time.index.min().date()), "2025-10-01")
+        self.assertEqual(str(task.past_time.index.max().date()), "2025-09-30")
+        self.assertGreater(len(task.future_time), 1)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,39 @@
+[
+  {
+    "label": "cxr_under1_sep2024_no_context",
+    "method": "direct_context_prompt",
+    "task_class": "CXRDailyForecastUnder1YearTask",
+    "method_kwargs": {
+      "model": "gpt-4o-mini",
+      "use_context": false,
+      "temperature": 0.2
+    },
+    "task_config": {
+      "normalized_path": "data/normalized/cxr_trends.csv",
+      "frequency": "D",
+      "horizon": null,
+      "history_length": null,
+      "series_mode": "single",
+      "forecast_start_date": "2024-09-01"
+    }
+  },
+  {
+    "label": "cxr_under1_sep2024_with_rsv_context",
+    "method": "direct_context_prompt",
+    "task_class": "CXRDailyForecastUnder1YearTask",
+    "method_kwargs": {
+      "model": "gpt-4o-mini",
+      "use_context": true,
+      "temperature": 0.2
+    },
+    "task_config": {
+      "normalized_path": "data/normalized/cxr_trends.csv",
+      "frequency": "D",
+      "horizon": null,
+      "history_length": null,
+      "series_mode": "single",
+      "forecast_start_date": "2024-09-01",
+      "context_text": "Counterfactual policy scenario: Ireland introduced a free RSV immunisation program (Nirsevimab) on 2024-09-01 to protect infants, focusing on newborns and high-risk babies during winter. The program is provided in maternity hospitals, with catch-up options for infants already born before the start date. Nirsevimab acts immediately and lasts for roughly 5 months, so from 2024-09-01 onward the forecast should reflect reduced RSV-related respiratory disease burden among children under one year old compared with no program."
+    }
+  }
+]

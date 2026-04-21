@@ -41,6 +41,13 @@ class TestForecastingSmoke(TempDirTestCaseMixin, unittest.TestCase):
             / "forecast_table.csv"
         )
         self.assertTrue(forecast_table.exists())
+        forecast_plot = (
+            output_folder
+            / "CXRDailyForecastUnder1YearTask"
+            / "seed_3"
+            / "forecast_plot.svg"
+        )
+        self.assertTrue(forecast_plot.exists())
 
     def test_direct_context_prompt_can_change_output_with_rsv_text(self):
         normalized_path = write_normalized_csv(self.tmp_path / "normalized.csv", days=80)
