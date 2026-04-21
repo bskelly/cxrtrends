@@ -1,0 +1,20 @@
+[
+  {
+    "label": "cxr_under1y_direct_prompt_with_context",
+    "method": "direct_context_prompt",
+    "task_class": "CXRDailyForecastUnder1YearTask",
+    "method_kwargs": {
+      "model": "gpt-4o-mini",
+      "use_context": true,
+      "temperature": 0.2
+    },
+    "task_config": {
+      "normalized_path": "data/normalized/cxr_trends.csv",
+      "frequency": "D",
+      "horizon": 7,
+      "history_length": 28,
+      "series_mode": "single",
+      "context_text": "A new vaccine was implemented on 2024-10-01 to reduce respiratory diseases."
+    }
+  }
+]

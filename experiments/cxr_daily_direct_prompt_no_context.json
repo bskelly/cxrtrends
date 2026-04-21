@@ -1,0 +1,19 @@
+[
+  {
+    "label": "cxr_under1y_direct_prompt_no_context",
+    "method": "direct_context_prompt",
+    "task_class": "CXRDailyForecastUnder1YearTask",
+    "method_kwargs": {
+      "model": "gpt-4o-mini",
+      "use_context": false,
+      "temperature": 0.2
+    },
+    "task_config": {
+      "normalized_path": "data/normalized/cxr_trends.csv",
+      "frequency": "D",
+      "horizon": 7,
+      "history_length": 28,
+      "series_mode": "single"
+    }
+  }
+]

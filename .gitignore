@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# macOS
+.DS_Store
+
+# Source data and normalized outputs
+data/
+*.xlsx
+*.xls
+*.parquet
+*.csv.metadata.json
+
+# Generated experiment artifacts
+benchmark_results/
+
+# Local environment / tooling
+.venv/
